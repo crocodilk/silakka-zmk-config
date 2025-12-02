@@ -6,10 +6,18 @@
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        caps_when_shift_dt: caps_when_shift_dt {
+            compatible = "zmk,behavior-tap-dance";
+            label = "CAPS_WHEN_SHIFT_DT";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_SHIFT>, <&kp CAPS>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -24,11 +32,11 @@
             //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
 
             bindings = <
-&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                       &kp N6       &kp N7    &kp N8         &kp N9   &kp N0    &kp GRAVE
-&kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                        &kp Y        &kp U     &kp I          &kp O    &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S   &kp D     &kp F     &kp G                        &kp H        &kp J     &kp K          &kp L    &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B        &none    &none  &kp N        &kp M     &kp COMMA      &kp DOT  &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &lt 2 SPACE  &none    &none  &lt 1 ENTER  &kp BSPC  &kp RIGHT_ALT
+&kp ESC              &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                       &kp N6       &kp N7    &kp N8         &kp N9   &kp N0    &kp GRAVE
+&kp TAB              &kp Q   &kp W   &kp E     &kp R     &kp T                        &kp Y        &kp U     &kp I          &kp O    &kp P     &kp MINUS
+&kp LCTRL            &kp A   &kp S   &kp D     &kp F     &kp G                        &kp H        &kp J     &kp K          &kp L    &kp SEMI  &kp SQT
+&caps_when_shift_dt  &kp Z   &kp X   &kp C     &kp V     &kp B        &none    &none  &kp N        &kp M     &kp COMMA      &kp DOT  &kp FSLH  &kp RSHFT
+                                     &kp LALT  &kp LGUI  &lt 2 SPACE  &none    &none  &lt 1 ENTER  &kp BSPC  &kp RIGHT_ALT
             >;
         };
 
@@ -43,11 +51,11 @@
             //                     |      |      |      |        |  |       |      |       |       |
 
             bindings = <
-&bt BT_CLR  &bt BT_SEL 0      &bt BT_SEL 1       &bt BT_SEL 2       &bt BT_SEL 3  &bt BT_SEL 4                    &trans     &trans     &trans     &trans    &trans    &trans
-&kp F1      &kp F2            &kp F3             &kp F4             &kp F5        &kp F6                          &kp F7     &kp F8     &kp F9     &kp F10   &kp F11   &kp F12
-&kp GRAVE   &kp EXCL          &kp AT             &kp HASH           &kp DOLLAR    &kp PRCNT                       &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR  &kp RPAR  &kp TILDE
-&trans      &ext_power EP_ON  &ext_power EP_OFF  &ext_power EP_TOG  &trans        &trans        &trans    &trans  &trans     &kp MINUS  &kp PLUS   &kp LBRC  &kp RBRC  &kp PIPE
-                                                 &trans             &trans        &trans        &trans    &trans  &trans     &trans     &trans
+&kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6                    &kp F7  &kp F8                &kp F9                 &kp F10        &kp F11         &kp F12
+&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp PIPE       &kp UNDERSCORE  &kp RS(EQUAL)
+&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &kp LEFT_BRACKET      &kp RS(RIGHT_BRACKET)  &kp BACKSLASH  &kp RS(MINUS)   &kp PLUS
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &kp LEFT_BRACE        &kp RIGHT_BRACE        &trans         &trans          &trans
+                        &trans  &trans  &trans  &trans    &trans  &trans  &trans                &trans
             >;
         };
 
@@ -62,21 +70,21 @@
             //                     |      |      |      |        |  |       |      |       |       |
 
             bindings = <
-&trans     &trans  &trans  &trans   &trans   &trans                     &trans       &trans      &trans        &trans     &trans    &trans
-&kp GRAVE  &kp N1  &kp N2  &kp N3   &kp N4   &kp N5                     &kp N6       &kp N7      &kp N8        &kp N9     &kp N0    &trans
-&kp F1     &kp F2  &kp F3  &kp F4   &kp F5   &kp F6                     &kp LEFT     &kp DOWN    &kp UP_ARROW  &kp RIGHT  &trans    &trans
-&kp F7     &kp F8  &kp F9  &kp F10  &kp F11  &kp F12  &trans    &trans  &kp KP_PLUS  &kp MINUS   &kp EQUAL     &kp LBKT   &kp RBKT  &kp BSLH
-                           &trans   &trans   &trans   &trans    &trans  &trans       &kp DELETE  &trans
+&trans  &trans  &trans  &trans  &trans  &trans                    &trans    &trans         &trans        &trans     &kp K_PREV         &kp K_NEXT
+&trans  &trans  &trans  &trans  &trans  &trans                    &kp HOME  &kp PAGE_DOWN  &kp PAGE_UP   &kp END    &kp C_VOL_UP       &kp K_PLAY_PAUSE
+&trans  &trans  &trans  &trans  &trans  &trans                    &kp LEFT  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &kp C_VOLUME_DOWN  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans    &trans         &trans        &trans     &trans             &trans
+                        &trans  &trans  &trans  &trans    &trans  &trans    &kp DELETE     &trans
             >;
         };
 
         MEDIALAYER {
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans  &trans  &trans  &trans  &trans  &studio_unlock
+&trans      &trans        &trans        &trans        &trans        &trans                          &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &trans        &trans        &trans        &trans        &trans                          &trans  &trans  &trans  &trans  &trans  &trans
+&trans      &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
+                                        &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans
             >;
         };
     };
