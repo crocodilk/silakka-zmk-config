@@ -125,19 +125,33 @@
          * Nawiasy stoja pionowo pod srodkowym i wskazujacym: [] / () / {}.
          * Kolumna 2 i 5 sa lustrzane: -/= na home row, _/+ pod spodem
          * (czyli shiftowane wersje dokladnie pod oryginalami).
-         * PRAWA reka celowo pusta (&trans). Wszystko, co dalo sie tam wsadzic
-         * (! @ # $ % ^ & * : " ?), to i tak Shift+cos z warstwy bazowej - zero
-         * nowej funkcjonalnosci. Dzieki pustce prawy home row J K L ; zachowuje
-         * modyfikatory Shift/Cmd/Option/Ctrl takze na tej warstwie.
-         * Rzad 0 zostaje na F1-F12.
+         * PRAWA reka dubluje nawigacje z RAISE - identyczne bindingi, zeby
+         * kursory byly dostepne niezaleznie od tego, ktory kciuk trzymasz.
+         * Symboli (! @ # $ % ^ & * : " ?) tu nie ma celowo - to i tak
+         * Shift+cos z warstwy bazowej, zero nowej funkcjonalnosci.
+         *
+         * Uwaga ergonomia: LOWER trzyma PRAWY kciuk, wiec nawigacja prawa reka
+         * jest tu obsluga jedna reka (kciuk trzyma, palce jada). Wygodniejsza
+         * wersja jest na RAISE, gdzie trzyma lewy kciuk i prawa reka jest wolna.
+         *
+         * Mody: nadpisanie prawego home row zabiera stamtad Shift/Cmd/Option/
+         * Ctrl, ale wszystkie zostaja dostepne po LEWEJ przez &trans:
+         *   Ctrl  - lewy pinky, home row  (-> mt_bal LCTRL ESCAPE)
+         *   Shift - lewy pinky, rzad 3    (-> kp LSHIFT)
+         *   Cmd   - lewy kciuk            (-> kp LGUI)
+         *   Option- lewy kciuk            (-> kp LALT)
+         * Dzieki temu Cmd+[ , Cmd+= , Ctrl+~ itd. nadal dzialaja.
+         *
+         * Rzad 0 zostaje na F1-F12. Prawy kciuk zostaje &trans (BSPC z bazy) -
+         * DELETE z RAISE tu nie kopiujemy.
          * ------------------------------------------------------------------ */
         lower_layer {
             display-name = "Lower Layer";
             bindings = <
 &kp F1  &kp F2         &kp F3            &kp F4                &kp F5                 &kp F6                              &kp F7        &kp F8         &kp F9        &kp F10          &kp F11        &kp F12
-&trans  &kp GRAVE      &kp LESS_THAN     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp GREATER_THAN                    &trans        &trans         &trans        &trans           &trans         &trans
-&trans  &kp TILDE      &kp MINUS         &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL                           &trans        &trans         &trans        &trans           &trans         &trans
-&trans  &kp BACKSLASH  &kp UNDERSCORE    &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp PLUS          &trans    &trans  &trans        &trans         &trans        &trans           &trans         &trans
+&trans  &kp GRAVE      &kp LESS_THAN     &kp LEFT_BRACKET      &kp RIGHT_BRACKET      &kp GREATER_THAN                    &trans        &kp LA(LEFT)   &kp UP_ARROW  &kp LA(RIGHT)    &kp PAGE_UP    &trans
+&trans  &kp TILDE      &kp MINUS         &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp EQUAL                           &kp LG(LEFT)  &kp LEFT       &kp DOWN      &kp RIGHT        &kp LG(RIGHT)  &trans
+&trans  &kp BACKSLASH  &kp UNDERSCORE    &kp LEFT_BRACE        &kp RIGHT_BRACE        &kp PLUS          &trans    &trans  &trans        &kp LG(UP)     &trans        &kp LG(DOWN)     &kp PAGE_DOWN  &trans
                                          &trans                &trans                 &trans            &trans    &trans  &trans        &trans         &trans
             >;
         };
